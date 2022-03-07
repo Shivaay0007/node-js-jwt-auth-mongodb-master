@@ -8,7 +8,8 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving notes.",
+        message:
+          err.message || "Some error occurred while retrieving products.",
       });
     });
 };
