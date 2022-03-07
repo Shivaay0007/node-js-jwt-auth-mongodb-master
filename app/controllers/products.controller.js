@@ -1,8 +1,10 @@
-const { product } = require("../models/products.model");
-console.log(product);
+// const { Product } = require("../models/products.model");
+const db = require("../models");
+const Product = db.product;
+
+console.log(Product);
 exports.findAll = (req, res) => {
-  product
-    .find()
+  Product.find({})
     .then((product) => {
       res.send(product);
     })

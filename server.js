@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
+const { request } = require("express");
 const Role = db.role;
 
 db.mongoose
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/products.routes")(app);
+require("./app/routes/cart.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

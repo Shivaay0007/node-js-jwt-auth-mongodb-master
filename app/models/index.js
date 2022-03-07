@@ -5,7 +5,8 @@ const db = {};
 
 db.mongoose = mongoose;
 
-// db.product = require("./products.model");
+db.Cart = require("./cart.model");
+db.product = require("./products.model");
 db.user = require("./user.model");
 db.role = require("./role.model");
 
