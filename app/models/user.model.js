@@ -12,6 +12,13 @@ const User = mongoose.model(
         ref: "Role",
       },
     ],
+    Cart: [
+      {
+        pro_id: { type: String },
+        pro_name: { type: String },
+        pro_price: { type: Number },
+      },
+    ],
   })
 );
 

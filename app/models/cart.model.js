@@ -4,17 +4,30 @@ const CartSchema = mongoose.model(
   "Cart",
   new mongoose.Schema({
     userId: { type: String, required: true },
+    // product: [
+    //   {
+    //     qunantity: String,
+    //     name: String,
+    //     price: Number,
+    //   },
+    // ],
     products: [
       {
-        productId: {
-          type: String,
-        },
-        quantity: {
-          type: Number,
-          default: 1,
-        },
+        productId: String,
+        quantity: Number,
+        name: String,
+        price: Number,
+        description: String,
       },
     ],
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    modifiedOn: {
+      type: Date,
+      default: Date.now,
+    },
   })
 );
 
