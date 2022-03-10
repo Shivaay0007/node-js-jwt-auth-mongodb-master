@@ -8,7 +8,7 @@ const razorpay = new Razorpay({
 const RazorPayCall = (app) => {
   app.get("/pay", async (req, res) => {
     const options = {
-      amount: 1000,
+      amount: 1 * 100,
       currency: "INR",
       receipt: "this is a new payment by Chandan", //any unique id
     };
@@ -26,23 +26,23 @@ const RazorPayCall = (app) => {
     }
   });
 
-  app.post("/pay-verify", async (req, res) => {
-    console.log("req.body line 26 , razorPay ", req.body);
-    body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
-    const crypto = require("crypto");
-    const expectedSignature = crypto
-      .createHmac("sha256", "ATcw3hHemufOVv9r6i5twsN0")
-      .update(body.toString())
-      .digest("hex");
-    // console.log("sig" + req.body.razorpay_signature);
-    // console.log("sig" + expectedSignature);
+  // app.post("/pay-verify", async (req, res) => {
+  //   console.log("req.body line 26 , razorPay ", req.body);
+  //   body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
+  //   const crypto = require("crypto");
+  //   const expectedSignature = crypto
+  //     .createHmac("sha256", "ATcw3hHemufOVv9r6i5twsN0")
+  //     .update(body.toString())
+  //     .digest("hex");
+  //   // console.log("sig" + req.body.razorpay_signature);
+  //   // console.log("sig" + expectedSignature);
 
-    if (expectedSignature === req.body.razorpay_signature) {
-      console.log("Payment Success");
-    } else {
-      console.log("Payment Fail");
-    }
-  });
+  //   if (expectedSignature === req.body.razorpay_signature) {
+  //     console.log("Payment Success");
+  //   } else {
+  //     console.log("Payment Fail");
+  //   }
+  // });
 };
 
 module.exports = RazorPayCall;
