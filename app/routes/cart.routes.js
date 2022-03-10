@@ -1,7 +1,9 @@
 // const Cart = require("../models/cart.model");
 // const authJwt = require("../middlewares/index");
+const { mongoose } = require("../models");
 const db = require("../models");
 const Cart = db.Cart;
+const ObjectId = require("mongodb").ObjectID;
 
 // const {
 //   verifyToken,
@@ -46,14 +48,15 @@ module.exports = (app) => {
   //   }
   // });
 
-  app.post("/cart/:pId", async (req, res) => {
+  app.post("/cart/:uId", async (req, res) => {
     const { productId, quantity, name, price, description } = req.body;
 
-    const userId = "5de7ffa74fff640a0491bc4f"; //TODO: the logged in user id
-
+    const id = req.params.id;
+    const userId = id; //TODO: the logged in user id
+    console.log(userId, "userid is printed");
     try {
       let cart = await Cart.findOne({ userId });
-
+      concole.log("is priented");
       if (cart) {
         //cart exists for user
         let itemIndex = cart.products.findIndex(
