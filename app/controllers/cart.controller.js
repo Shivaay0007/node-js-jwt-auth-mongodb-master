@@ -21,7 +21,14 @@ module.exports = AddToCart = async (req, res) => {
         cart.products[itemIndex] = productItem;
       } else {
         //product does not exists in cart, add new item
-        cart.products.push({ productId, quantity, name, price, description, userId });
+        cart.products.push({
+          productId,
+          quantity,
+          name,
+          price,
+          description,
+          userId,
+        });
       }
       cart = await cart.save();
       return res.status(201).send(cart);
@@ -37,5 +44,14 @@ module.exports = AddToCart = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).send("Something went wrong");
+  }
+};
+
+module.exports = FindUserCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ userId: req.params.userId });
+    res.status(200).json(cart);
+  } catch (err) {
+    res.status(500).json({ err });
   }
 };

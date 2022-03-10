@@ -16,6 +16,9 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+// razorpay api route
+app.use("/checkout", require("./app/routes/razorpay"));
+
 const db = require("./app/models");
 const { request } = require("express");
 // const { authJwt } = require("./app/middlewares/index");
@@ -45,7 +48,8 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/products.routes")(app);
 require("./app/routes/cart.routes")(app);
-require("./app/routes/stripe")(app);
+// require("./app/routes/stripe")(app);
+require("./app/routes/razorpay")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

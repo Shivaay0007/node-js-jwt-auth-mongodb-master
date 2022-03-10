@@ -3,10 +3,8 @@
 const { mongoose } = require("../models");
 const db = require("../models");
 const Cart = db.Cart;
-const ObjectId = require("mongodb").ObjectID;
-
 const AddToCart = require("../controllers/cart.controller");
-
+const FindUserCart = require("../controllers/cart.controller");
 // const {
 //   verifyToken,
 //   verifyTokenAndAuthorization,
@@ -25,7 +23,9 @@ module.exports = (app) => {
       })
       .catch((err) => {
         res.status(500).send({
-          message: err.message || "Some error occurred while retrieving cart products.",
+          message:
+            err.message ||
+            "Some error occurred while retrieving cart products.",
         });
       });
     //   const newCart = new Cart(req.body);
@@ -78,14 +78,8 @@ module.exports = (app) => {
   });
 
   //GET USER CART
-  app.get("/find/:userId", async (req, res) => {
-    try {
-      const cart = await Cart.findOne({ userId: req.params.userId });
-      res.status(200).json(cart);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+
+  app.get("/find/:userId", FindUserCart);
 
   // //GET ALL
 
