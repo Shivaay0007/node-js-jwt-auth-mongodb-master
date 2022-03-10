@@ -2,7 +2,6 @@
 const db = require("../models");
 const Product = db.product;
 
-console.log(Product);
 exports.findAll = (req, res) => {
   Product.find({})
     .then((product) => {
@@ -10,8 +9,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving products.",
+        message: err.message || "Some error occurred while retrieving products.",
       });
     });
 };
