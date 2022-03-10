@@ -1,37 +1,41 @@
-const express = require("express");
 const Razorpay = require("razorpay");
 
-const instance = new Razorpay({
+const razorpay = new Razorpay({
   key_id: "rzp_test_zIUsPykcjYEZHO",
   key_secret: "ATcw3hHemufOVv9r6i5twsN0",
 });
 
-module.exports = (app) => {
-  app.get("/", async (req, res) => {
+const RazorPayCall = (app) => {
+  app.get("/pay", async (req, res) => {
     const options = {
-      amount: 600 * 10,
+      amount: 1000,
       currency: "INR",
+      receipt: "this is a new payment by Chandan", //any unique id
     };
-    instance.orders.create(options, function (err, order) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(order);
-        res.render("checkout", { amount: order.amount, order_id: order.id });
-      }
-    });
+
+    try {
+      const response = await razorpay.orders.create(options);
+      res.json({
+        order_id: response.id,
+        currency: response.currency,
+        amount: response.amount,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("Unable to create order");
+    }
   });
-  console.log(app);
+
   app.post("/pay-verify", async (req, res) => {
-    console.log(req.body);
+    console.log("req.body line 26 , razorPay ", req.body);
     body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
     const crypto = require("crypto");
     const expectedSignature = crypto
       .createHmac("sha256", "ATcw3hHemufOVv9r6i5twsN0")
       .update(body.toString())
       .digest("hex");
-    console.log("sig" + req.body.razorpay_signature);
-    console.log("sig" + expectedSignature);
+    // console.log("sig" + req.body.razorpay_signature);
+    // console.log("sig" + expectedSignature);
 
     if (expectedSignature === req.body.razorpay_signature) {
       console.log("Payment Success");
@@ -40,4 +44,5 @@ module.exports = (app) => {
     }
   });
 };
-// module.exports = app;
+
+module.exports = RazorPayCall;
