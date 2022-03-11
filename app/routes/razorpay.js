@@ -7,7 +7,7 @@ const razorpay = new Razorpay({
 });
 
 const RazorPayCall = (app) => {
-  app.get("/CreateOrder", async (req, res) => {
+  app.get("/pay", async (req, res) => {
     const options = {
       amount: 10 * 10,
       currency: "INR",
