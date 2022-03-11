@@ -5,6 +5,8 @@ const db = require("../models");
 const Cart = db.Cart;
 const AddToCart = require("../controllers/cart.controller");
 const FindUserCart = require("../controllers/cart.controller");
+const { authJwt } = require("../middlewares/index");
+
 // const {
 //   verifyToken,
 //   verifyTokenAndAuthorization,
@@ -16,7 +18,7 @@ const FindUserCart = require("../controllers/cart.controller");
 // Get
 
 module.exports = (app) => {
-  app.get("/Cart", async (req, res) => {
+  app.get("/Cart", [authJwt.verifyToken], async (req, res) => {
     Cart.find({})
       .then((cart) => {
         res.send(cart);
@@ -48,10 +50,10 @@ module.exports = (app) => {
   //   }
   // });
 
-  app.post("/cart/:id", AddToCart);
+  app.post("/cart/:id", [authJwt.verifyToken], AddToCart);
 
   //UPDATE
-  app.put("/Cart/:id", async (req, res) => {
+  app.put("/Cart/:id", [authJwt.verifyToken], async (req, res) => {
     try {
       const updatedCart = await Cart.findByIdAndUpdate(
         req.params.id,
@@ -68,7 +70,7 @@ module.exports = (app) => {
   });
 
   //DELETE
-  app.delete("/:id", async (req, res) => {
+  app.delete("/:id", [authJwt.verifyToken], async (req, res) => {
     try {
       await Cart.findByIdAndDelete(req.params.id);
       res.status(200).json("Cart has been deleted...");
@@ -79,11 +81,11 @@ module.exports = (app) => {
 
   //GET USER CART
 
-  app.get("/find/:userId", FindUserCart);
+  app.get("/find/:userId", [authJwt.verifyToken], FindUserCart);
 
   // //GET ALL
 
-  app.get("/", async (req, res) => {
+  app.get("/", [authJwt.verifyToken], async (req, res) => {
     try {
       const carts = await Cart.find();
       res.status(200).json(carts);

@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 const { request } = require("express");
-// const { authJwt } = require("./app/middlewares/index");
+const { verifyToken } = require("./app/middlewares/index");
 const Role = db.role;
 
 db.mongoose
@@ -48,7 +48,7 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/products.routes")(app);
 require("./app/routes/cart.routes")(app);
 // require("./app/routes/stripe")(app);
-require("./app/routes/razorpay")(app);
+require("./app/routes/razorpay", verifyToken)(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

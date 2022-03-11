@@ -1,4 +1,4 @@
-fetch("http://localhost:8080/pay").then((orderData) => {
+fetch("http://localhost:8080/CreateOrder").then((orderData) => {
   console.log("orderData ", orderData);
 
   if (false) {

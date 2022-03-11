@@ -1,4 +1,5 @@
 const Razorpay = require("razorpay");
+const { authJwt } = require("../middlewares/index");
 
 const razorpay = new Razorpay({
   key_id: "rzp_test_zIUsPykcjYEZHO",
@@ -6,7 +7,7 @@ const razorpay = new Razorpay({
 });
 
 const RazorPayCall = (app) => {
-  app.get("/pay", async (req, res) => {
+  app.get("/CreateOrder", async (req, res) => {
     const options = {
       amount: 10 * 10,
       currency: "INR",
