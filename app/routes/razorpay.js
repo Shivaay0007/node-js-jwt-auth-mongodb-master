@@ -8,9 +8,9 @@ const razorpay = new Razorpay({
 const RazorPayCall = (app) => {
   app.get("/pay", async (req, res) => {
     const options = {
-      amount: 1 * 100,
+      amount: 10 * 10,
       currency: "INR",
-      receipt: "this is a new payment by Chandan", //any unique id
+      receipt: "this is a new payment by Shrey", //any unique id
     };
 
     try {
@@ -21,8 +21,11 @@ const RazorPayCall = (app) => {
         amount: response.amount,
       });
     } catch (error) {
-      console.log(error);
-      res.status(400).send("Unable to create order");
+      console.log(error, "error pf catch oderID");
+      res.status(400).json({
+        message: error.error.description,
+        success: false,
+      });
     }
   });
 
