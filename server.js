@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // razorpay api route
-app.use("/checkout", require("./app/routes/razorpay"));
 
 const db = require("./app/models");
 const { request } = require("express");
