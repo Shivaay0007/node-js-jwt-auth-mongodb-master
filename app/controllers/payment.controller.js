@@ -1,43 +1,23 @@
+// const { Payment } = require("../models");
 const db = require("../models");
-const Payment = db.Payment;
+const PaymentModel = db.Payment;
 
-module.exports = Payment = async (req, res) => {
-  const { productId, cartId } = req.body;
-
+module.exports = PaymentController = async (req, res) => {
   const id = req.params.id;
-  const userId = id;
-
-  try {
-    let Payment = await Payment.findOne({ paymentId });
-    console.log("is priented", Payment);
-    if (Payment) {
-      let itemIndex = Payment.products.findIndex(
-        (p) => p.productId == productId
-      );
-      if (itemIndex) {
-        let Payment = Payment.products[itemIndex];
-        Payment.cartId = cartId;
-        products.productId[itemIndex] = Payment;
-      } else {
-        Payment.productId.push({
-          productId,
-          cartId,
-          userId,
-        });
-      }
-      Payment = await Payment.save();
-      return res.status(201).send(Payment);
+  userId = id;
+  const Payment = new PaymentModel({
+    userId,
+    productId: req.body.productId,
+    cartId: req.body.cartId,
+    paymentId: req.body.paymentId,
+  });
+  Payment.save((err) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
     } else {
-      const newpamyment = await Payment.Create({
-        userId,
-        productId,
-        cartId,
-      });
-      return res.status(201).send(newpamyment);
+      res.send({ message: "Paid successfully!" });
     }
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("pls try again letter");
-  }
+  });
 };
-module.exports = Payment;
+module.exports = PaymentController;

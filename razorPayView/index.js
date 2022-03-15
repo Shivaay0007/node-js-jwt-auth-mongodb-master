@@ -1,10 +1,10 @@
-fetch("http://localhost:8080/pay")
+fetch(`http://localhost:8080/pay/:id${prompt("what is your user id ")}`)
   .then((paymentCreated) => {
     return paymentCreated.json();
   })
   .then((data) => {
     console.log("create payment ", data);
-
+    0;
     if (data.order_id) {
       var options = {
         key: "rzp_test_zIUsPykcjYEZHO",
@@ -14,10 +14,11 @@ fetch("http://localhost:8080/pay")
         description: "Pay & Checkout this Course, Upgrade your DSA Skill",
         image: `https://media.geeksforgeeks.org/wp-content/uploads/20210806114908/dummy-200x200.png`,
         order_id: data.order_id,
-        handler: `function (response){
-           console.log(response)
-           alert("This step of Payment Succeeded");
-       }`,
+        handler: function (response) {
+          console.log("response of payment line 18 index.js ==>> ", response);
+          alert("This step of Payment Succeeded");
+        },
+
         prefill: {
           contact: prompt("what is your contact no"),
           name: prompt("what is your name"),

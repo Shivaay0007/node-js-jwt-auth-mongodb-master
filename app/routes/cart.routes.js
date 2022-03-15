@@ -70,12 +70,22 @@ module.exports = (app) => {
   });
 
   //DELETE
-  app.delete("/:id", [authJwt.verifyToken], async (req, res) => {
+  app.delete("/Cart/:id", [authJwt.verifyToken], async (req, res) => {
     try {
-      await Cart.findByIdAndDelete(req.params.id);
-      res.status(200).json("Cart has been deleted...");
+      const deletedCartItemrRes = await Cart.deleteOne({
+        products: {
+          _id: req.params.id,
+        },
+      });
+      if (true) {
+        console.log("cart delete check", deletedCartItemrRes);
+        res.status(200).json("Cart Item has been deleted Successfully...");
+      } else {
+        res.status(500).json({ err: "Pls try again..." });
+      }
     } catch (err) {
       res.status(500).json(err);
+      console.log(err);
     }
   });
 

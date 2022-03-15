@@ -60,7 +60,7 @@ require("./app/routes/products.routes")(app);
 require("./app/routes/cart.routes")(app);
 // require("./app/routes/stripe")(app);
 require("./app/routes/razorpay")(app);
-require("./app/routes/payment.routes");
+require("./app/routes/payment.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
