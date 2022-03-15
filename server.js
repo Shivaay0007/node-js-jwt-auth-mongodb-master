@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
 
+var morgan = require("morgan");
+
 const app = express();
 
 // parse requests of content-type - application/json
@@ -9,6 +11,9 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+//  morgan
+app.use(morgan("dev"));
 
 // razorpay api route
 
@@ -55,6 +60,7 @@ require("./app/routes/products.routes")(app);
 require("./app/routes/cart.routes")(app);
 // require("./app/routes/stripe")(app);
 require("./app/routes/razorpay")(app);
+require("./app/routes/payment.routes");
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
