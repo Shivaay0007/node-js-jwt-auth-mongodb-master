@@ -77,7 +77,7 @@ module.exports = (app) => {
           _id: req.params.id,
         },
       });
-      if (true) {
+      if (req.params.id) {
         console.log("cart delete check", deletedCartItemrRes);
         res.status(200).json("Cart Item has been deleted Successfully...");
       } else {
