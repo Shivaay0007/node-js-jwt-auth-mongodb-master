@@ -5,6 +5,7 @@ const db = {};
 
 db.mongoose = mongoose;
 
+db.Payment = require("./payment.model");
 db.Cart = require("./cart.model");
 db.product = require("./products.model");
 db.user = require("./user.model");

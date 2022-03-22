@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
 const ProductsSchema = mongoose.Schema({
-  // id: { type: String },
   // name: { type: String },
   // price: { type: Number },
   // image: { type: String },
-  // colors: { type: Array },
+  // colors: { type: Array },x
   // company: { type: String },
   // description: {
   //   type: String,
   // },
+  // productId: { type: String },
   // category: {
   //   type: String,
   // },

@@ -1,4 +1,5 @@
 const Razorpay = require("razorpay");
+const { authJwt } = require("../middlewares/index");
 
 const razorpay = new Razorpay({
   key_id: "rzp_test_zIUsPykcjYEZHO",
@@ -6,7 +7,9 @@ const razorpay = new Razorpay({
 });
 
 const RazorPayCall = (app) => {
-  app.get("/pay", async (req, res) => {
+  app.get("/pay/:id", async (req, res) => {
+    const id = req.params.id;
+    userId = id;
     const options = {
       amount: 10 * 10,
       currency: "INR",
@@ -15,13 +18,16 @@ const RazorPayCall = (app) => {
 
     try {
       const response = await razorpay.orders.create(options);
+      // console.log("Response yaha hai ==>", response);
       res.json({
+        userId,
         order_id: response.id,
         currency: response.currency,
         amount: response.amount,
+        productId: req.body.productId,
       });
     } catch (error) {
-      console.log(error, "error pf catch oderID");
+      // console.log(error, "error pf catch oderID");
       res.status(400).json({
         message: error.error.description,
         success: false,
