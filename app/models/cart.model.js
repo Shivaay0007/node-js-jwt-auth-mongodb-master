@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+var Schema = mongoose.Schema;
 const CartSchema = mongoose.model(
   "Cart",
   new mongoose.Schema({
@@ -14,6 +14,7 @@ const CartSchema = mongoose.model(
         description: String,
       },
     ],
+    product: { type: Schema.Types.ObjectId, ref: "Product" },
     active: {
       type: Boolean,
       default: true,

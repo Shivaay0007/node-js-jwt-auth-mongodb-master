@@ -6,13 +6,13 @@ module.exports = AddToCart = async (req, res) => {
 
   const id = req.params.id;
   const userId = id; //TODO: the logged in user id
-  console.log(userId, "userid is printed");
+  // console.log(userId, "userid is printed");
   try {
     let cart = await Cart.findOne({ userId });
     console.log("is priented", cart);
     if (cart) {
       //cart exists for user
-      let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+      let itemIndex = cart.products.findIndex((p) => p.productId === productId);
 
       if (itemIndex > -1) {
         //product exists in the cart, update the quantity

@@ -20,7 +20,9 @@ const { authJwt } = require("../middlewares/index");
 module.exports = (app) => {
   app.get("/Cart", [authJwt.verifyToken], async (req, res) => {
     Cart.find({})
+      .populate("Products")
       .then((cart) => {
+        cart;
         res.send(cart);
       })
       .catch((err) => {
