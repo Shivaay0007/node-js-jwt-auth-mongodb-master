@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 const CartSchema = mongoose.model(
   "Cart",
   new mongoose.Schema({
-    userId: { type: String, required: true },
+    userId: { type: Schema.ObjectId, required: true },
 
     products: [
       {

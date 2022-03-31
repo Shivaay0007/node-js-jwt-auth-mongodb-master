@@ -19,7 +19,7 @@ exports.findById = (req, res) => {
   Product.find({ id: req.params.productId })
     .then((productId) => {
       if (productId) {
-        console.log("productId ", productId);
+        // console.log("productId ", productId);
         res.send(productId);
       }
     })
