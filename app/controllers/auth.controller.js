@@ -11,6 +11,7 @@ exports.signup = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
+    address: req.body.address,
   });
 
   user.save((err, user) => {
@@ -108,6 +109,7 @@ exports.signin = (req, res) => {
           id: user._id,
           username: user.username,
           email: user.email,
+          address: user.address,
           roles: authorities,
           accessToken: token,
         });
